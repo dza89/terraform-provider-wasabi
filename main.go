@@ -8,7 +8,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/manvalls/terraform-provider-wasabi/aws"
+	"github.com/dza89/terraform-provider-wasabi/aws"
 )
 
 func main() {

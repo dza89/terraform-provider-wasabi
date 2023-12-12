@@ -1,4 +1,4 @@
-module github.com/manvalls/terraform-provider-wasabi
+module github.com/dza89/terraform-provider-wasabi
 
 go 1.14
 
