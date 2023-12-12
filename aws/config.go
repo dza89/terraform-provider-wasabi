@@ -12,6 +12,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 )
 
+const (
+	wasabiIamEndpoint = "https://iam.wasabisys.com"
+)
+
 type Config struct {
 	AccessKey     string
 	SecretKey     string
@@ -125,7 +129,7 @@ func (c *Config) Client() (interface{}, error) {
 		accountid:        accountID,
 		region:           c.Region,
 		dnsSuffix:        dnsSuffix,
-		iamconn:          iam.New(sess.Copy(&aws.Config{Endpoint: aws.String(c.Endpoints["iam"])})),
+		iamconn:          iam.New(sess.Copy(&aws.Config{Endpoint: aws.String(wasabiIamEndpoint)})),
 		partition:        partition,
 		terraformVersion: c.terraformVersion,
 	}
