@@ -5,7 +5,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	"github.com/manvalls/terraform-provider-wasabi/aws/internal/mutexkv"
+	"github.com/dza89/terraform-provider-wasabi/aws/internal/mutexkv"
 )
 
 // Provider returns a *schema.Provider.

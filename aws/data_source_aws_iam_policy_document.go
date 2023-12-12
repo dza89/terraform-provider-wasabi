@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/dza89/terraform-provider-wasabi/aws/internal/hashcode"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/manvalls/terraform-provider-wasabi/aws/internal/hashcode"
 )
 
 var dataSourceAwsIamPolicyDocumentVarReplacer = strings.NewReplacer("&{", "${")

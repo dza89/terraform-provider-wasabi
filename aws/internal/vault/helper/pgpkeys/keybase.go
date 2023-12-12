@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/dza89/terraform-provider-wasabi/aws/internal/vault/sdk/helper/jsonutil"
 	cleanhttp "github.com/hashicorp/go-cleanhttp"
 	"github.com/keybase/go-crypto/openpgp"
-	"github.com/manvalls/terraform-provider-wasabi/aws/internal/vault/sdk/helper/jsonutil"
 )
 
 const (
