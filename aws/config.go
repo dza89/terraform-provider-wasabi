@@ -14,7 +14,7 @@ import (
 
 const (
 	wasabiIamEndpoint = "https://iam.wasabisys.com"
-	wasabiIamRegion = "us-east-1"
+	wasabiIamRegion   = "us-east-1"
 )
 
 type Config struct {
@@ -130,7 +130,7 @@ func (c *Config) Client() (interface{}, error) {
 		accountid:        accountID,
 		region:           c.Region,
 		dnsSuffix:        dnsSuffix,
-		iamconn:          iam.New(sess.Copy(&aws.Config{Endpoint: aws.String(wasabiIamEndpoint), Region: wasabiIamRegion})),
+		iamconn:          iam.New(sess.Copy(&aws.Config{Endpoint: aws.String(wasabiIamEndpoint), Region: aws.String(wasabiIamRegion)})),
 		partition:        partition,
 		terraformVersion: c.terraformVersion,
 	}
@@ -140,8 +140,6 @@ func (c *Config) Client() (interface{}, error) {
 		Endpoint:         aws.String(c.Endpoints["s3"]),
 		S3ForcePathStyle: aws.Bool(c.S3ForcePathStyle),
 	}
-	s3Config.Region = 
-
 	client.s3conn = s3.New(sess.Copy(s3Config))
 
 	s3Config.DisableRestProtocolURICleaning = aws.Bool(true)
