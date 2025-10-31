@@ -1,15 +1,12 @@
 package aws
 
 import (
-	"context"
 	"fmt"
 	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/arn"
-	"github.com/aws/aws-sdk-go/aws/request"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -82,16 +79,20 @@ func dataSourceAwsS3BucketRead(d *schema.ResourceData, meta interface{}) error {
 }
 
 func bucketLocation(client *AWSClient, d *schema.ResourceData, bucket string) error {
-	region, err := s3manager.GetBucketRegionWithClient(context.Background(), client.s3conn, bucket, func(r *request.Request) {
-		// By default, GetBucketRegion forces virtual host addressing, which
-		// is not compatible with many non-AWS implementations. Instead, pass
-		// the provider s3_force_path_style configuration, which defaults to
-		// false, but allows override.
-		r.Config.S3ForcePathStyle = client.s3conn.Config.S3ForcePathStyle
+	res, err := client.s3conn.GetBucketLocation(&s3.GetBucketLocationInput{
+		Bucket: aws.String(bucket),
 	})
 	if err != nil {
 		return err
 	}
+
+	// Handle the special case where us-east-1 returns nil for LocationConstraint
+	location := "us-east-1"
+	if res.LocationConstraint != nil {
+		location = *res.LocationConstraint
+	}
+
+	region := s3.NormalizeBucketLocation(location)
 	if err := d.Set("region", region); err != nil {
 		return err
 	}
