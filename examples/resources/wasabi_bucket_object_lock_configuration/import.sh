@@ -1,0 +1,1 @@
+terraform import wasabi_bucket_object_lock_configuration.example example-bucket

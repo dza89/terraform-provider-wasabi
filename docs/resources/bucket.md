@@ -27,6 +27,7 @@ description: |-
 - `id` (String) The ID of this resource.
 - `lifecycle_rule` (Block List) (see [below for nested schema](#nestedblock--lifecycle_rule))
 - `logging` (Block Set) (see [below for nested schema](#nestedblock--logging))
+- `object_lock_enabled` (Boolean) Whether Object Lock is enabled for the bucket. It can only be set when the bucket is created and cannot be disabled afterwards. When omitted, the value is read from the bucket, so buckets that already have Object Lock are not replaced.
 - `policy` (String)
 - `request_payer` (String)
 - `versioning` (Block List, Max: 1) (see [below for nested schema](#nestedblock--versioning))

@@ -156,6 +156,8 @@ func Provider() *schema.Provider {
 			"wasabi_bucket_policy":              resourceAwsS3BucketPolicy(),
 			"wasabi_bucket_public_access_block": resourceAwsS3BucketPublicAccessBlock(),
 			"wasabi_bucket_object":              resourceAwsS3BucketObject(),
+
+			"wasabi_bucket_object_lock_configuration": resourceAwsS3BucketObjectLockConfiguration(),
 		},
 	}
 

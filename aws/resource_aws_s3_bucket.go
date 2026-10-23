@@ -331,6 +331,14 @@ func resourceAwsS3Bucket() *schema.Resource {
 					s3.PayerBucketOwner,
 				}, false),
 			},
+
+			"object_lock_enabled": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Computed:    true,
+				ForceNew:    true,
+				Description: "Whether Object Lock is enabled for the bucket. It can only be set when the bucket is created and cannot be disabled afterwards. When omitted, the value is read from the bucket, so buckets that already have Object Lock are not replaced.",
+			},
 		},
 	}
 }
@@ -353,6 +361,10 @@ func resourceAwsS3BucketCreate(d *schema.ResourceData, meta interface{}) error {
 
 	req := &s3.CreateBucketInput{
 		Bucket: aws.String(bucket),
+	}
+
+	if d.Get("object_lock_enabled").(bool) {
+		req.ObjectLockEnabledForBucket = aws.Bool(true)
 	}
 
 	if acl, ok := d.GetOk("acl"); ok {
@@ -613,6 +625,17 @@ func resourceAwsS3BucketRead(d *schema.ResourceData, meta interface{}) error {
 	}
 	if err := d.Set("versioning", vcl); err != nil {
 		return fmt.Errorf("error setting versioning: %s", err)
+	}
+
+	// Read the Object Lock status
+	objectLockEnabled, known, err := s3BucketObjectLockEnabled(s3conn, d.Id(), d.IsNewResource())
+	if err != nil {
+		return fmt.Errorf("error getting S3 Bucket Object Lock configuration: %s", err)
+	}
+	if known {
+		if err := d.Set("object_lock_enabled", objectLockEnabled); err != nil {
+			return fmt.Errorf("error setting object_lock_enabled: %s", err)
+		}
 	}
 
 	// Read the request payer configuration.
