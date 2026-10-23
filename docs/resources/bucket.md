@@ -25,11 +25,11 @@ description: |-
 - `force_destroy` (Boolean)
 - `grant` (Block Set) (see [below for nested schema](#nestedblock--grant))
 - `id` (String) The ID of this resource.
-- `lifecycle_rule` (Block List) (see [below for nested schema](#nestedblock--lifecycle_rule))
+- `lifecycle_rule` (Block List) Do not use it together with the `wasabi_bucket_lifecycle_configuration` resource for the same bucket. Without any `lifecycle_rule` block, this resource removes the lifecycle rules that it finds, so a bucket whose rules are managed by `wasabi_bucket_lifecycle_configuration` needs `ignore_changes = [lifecycle_rule]` in its `lifecycle` block. (see [below for nested schema](#nestedblock--lifecycle_rule))
 - `logging` (Block Set) (see [below for nested schema](#nestedblock--logging))
 - `policy` (String)
 - `request_payer` (String)
-- `versioning` (Block List, Max: 1) (see [below for nested schema](#nestedblock--versioning))
+- `versioning` (Block List, Max: 1) Do not use it together with the `wasabi_bucket_versioning` resource for the same bucket. (see [below for nested schema](#nestedblock--versioning))
 
 ### Read-Only
 

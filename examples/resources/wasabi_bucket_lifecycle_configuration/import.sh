@@ -1,0 +1,1 @@
+terraform import wasabi_bucket_lifecycle_configuration.example example-bucket

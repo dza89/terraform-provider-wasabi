@@ -135,6 +135,9 @@ func Provider() *schema.Provider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
+			"wasabi_bucket_versioning":              resourceAwsS3BucketVersioning(),
+			"wasabi_bucket_lifecycle_configuration": resourceAwsS3BucketLifecycleConfiguration(),
+
 			"wasabi_access_key":                 resourceAwsIamAccessKey(),
 			"wasabi_account_alias":              resourceAwsIamAccountAlias(),
 			"wasabi_account_password_policy":    resourceAwsIamAccountPasswordPolicy(),

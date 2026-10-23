@@ -1,0 +1,1 @@
+terraform import wasabi_bucket_versioning.example example-bucket

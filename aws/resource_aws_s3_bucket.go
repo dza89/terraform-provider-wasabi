@@ -165,10 +165,11 @@ func resourceAwsS3Bucket() *schema.Resource {
 			},
 
 			"versioning": {
-				Type:     schema.TypeList,
-				Optional: true,
-				Computed: true,
-				MaxItems: 1,
+				Type:        schema.TypeList,
+				Optional:    true,
+				Computed:    true,
+				MaxItems:    1,
+				Description: "Do not use it together with the `wasabi_bucket_versioning` resource for the same bucket.",
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enabled": {
@@ -210,8 +211,9 @@ func resourceAwsS3Bucket() *schema.Resource {
 			},
 
 			"lifecycle_rule": {
-				Type:     schema.TypeList,
-				Optional: true,
+				Type:        schema.TypeList,
+				Optional:    true,
+				Description: "Do not use it together with the `wasabi_bucket_lifecycle_configuration` resource for the same bucket. Without any `lifecycle_rule` block, this resource removes the lifecycle rules that it finds, so a bucket whose rules are managed by `wasabi_bucket_lifecycle_configuration` needs `ignore_changes = [lifecycle_rule]` in its `lifecycle` block.",
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
